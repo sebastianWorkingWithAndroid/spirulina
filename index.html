@@ -902,5 +902,30 @@
       initReveal();
     })();
   </script>
+
+<!-- Netlify Identity widget (NECESARIO para /admin y para aceptar invitaciones) -->
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+<script>
+  // 1) Cuando carga el widget
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", (user) => {
+      // Si no hay usuario logueado, pero existe invite_token en la URL
+      const hash = window.location.hash || "";
+      const hasInvite = hash.includes("invite_token=") || hash.includes("recovery_token=");
+
+      if (!user && hasInvite) {
+        // Abre modal para crear contraseña / recuperar
+        window.netlifyIdentity.open();
+      }
+    });
+
+    // 2) Si inicia sesión, manda al admin
+    window.netlifyIdentity.on("login", () => {
+      document.location.href = "/admin/";
+    });
+  }
+</script>
+
 </body>
 </html>
