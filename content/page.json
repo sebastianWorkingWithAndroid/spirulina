@@ -1,0 +1,73 @@
+{
+  "blocks": [
+    {
+      "type": "hero",
+      "id": "producto",
+      "title": "Spirulina",
+      "subtitle": "Contenido de ejemplo (edítame en el CMS)",
+      "headline": "Este texto es inventado para que la persona sepa qué cambiar.",
+      "body": "✅ Este párrafo es un ejemplo.\n\n- Puedes escribir listas\n- Resaltar en **negrita**\n- Agregar párrafos\n\n**Instrucción:** reemplaza este contenido por tu descripción real.",
+      "image": "assets/uploads/demo-product.svg",
+      "imageAlt": "Imagen demo",
+      "pills": ["🌿 Natural", "🥤 Fácil de mezclar", "✨ Rutina diaria"],
+      "buttons": [
+        { "label": "Ver tabs", "href": "#info", "variant": "primary" },
+        { "label": "Ir a galería", "href": "#galeria", "variant": "ghost" }
+      ]
+    },
+    {
+      "type": "nav",
+      "id": "navegacion",
+      "items": [
+        { "label": "📌 Producto", "href": "#producto" },
+        { "label": "💚 Beneficios", "href": "#beneficios" },
+        { "label": "📋 Tabs", "href": "#info" },
+        { "label": "🖼️ Galería", "href": "#galeria" }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "beneficios",
+      "title": "Beneficios (DEMO)",
+      "body": "Este bloque existe para que el editor entienda **qué editar**.\n\n- ✅ Beneficio 1 (inventado)\n- ✅ Beneficio 2 (inventado)\n- ✅ Beneficio 3 (inventado)\n\nCambia estos bullets por los reales."
+    },
+    {
+      "type": "image",
+      "id": "imagen-demo",
+      "title": "Bloque de imagen (DEMO)",
+      "image": "assets/uploads/demo-1.svg",
+      "alt": "Imagen demo",
+      "caption": "Caption demo: aquí puedes explicar la foto o dar una nota."
+    },
+    {
+      "type": "tabs",
+      "id": "info",
+      "title": "Información del producto (DEMO)",
+      "ariaLabel": "Tabs de producto",
+      "tabs": [
+        {
+          "label": "Descripción",
+          "body": "Texto inventado para **Descripción**.\n\nExplica qué es, para qué sirve, cómo se siente, por qué es diferente, etc."
+        },
+        {
+          "label": "Información nutricional",
+          "body": "Texto inventado para **Información nutricional**.\n\nEjemplo:\n\n- Porción: 5g\n- Proteína: Xg\n- Nota: *revisa la etiqueta real*."
+        },
+        {
+          "label": "Modo de uso",
+          "body": "Texto inventado para **Modo de uso**.\n\n1) Mezcla 1 cucharadita\n2) En 250ml de agua o batido\n3) Ajusta al gusto"
+        }
+      ]
+    },
+    {
+      "type": "gallery",
+      "id": "galeria",
+      "title": "Galería (DEMO)",
+      "images": [
+        { "image": "assets/uploads/demo-2.svg", "alt": "Demo 2" },
+        { "image": "assets/uploads/demo-3.svg", "alt": "Demo 3" },
+        { "image": "assets/uploads/demo-1.svg", "alt": "Demo 1" }
+      ]
+    }
+  ]
+}

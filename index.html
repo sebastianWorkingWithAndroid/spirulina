@@ -2,260 +2,905 @@
 <html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Guía del Proceso | Documentación</title>
-  
-  <link rel="stylesheet" href="css/style.css" />
-  
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <meta name="theme-color" content="#0f1512" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f9f7" media="(prefers-color-scheme: light)">
+  <title>Spirulina · Ficha del Producto</title>
+  <meta name="description" content="Ficha editable: descripción, información nutricional y modo de uso." />
+
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+  <style>
+    :root{
+      --bg: #0b120f;
+      --surface: rgba(255,255,255,.06);
+      --surface-2: rgba(255,255,255,.10);
+      --stroke: rgba(255,255,255,.12);
+      --text: rgba(235,245,238,.92);
+      --muted: rgba(190,215,198,.78);
+      --title: #dbf7e6;
+
+      --accent: #37d67a;
+      --accent-2: #1fbf6a;
+      --accent-soft: rgba(55,214,122,.16);
+
+      --shadow: 0 18px 60px rgba(0,0,0,.35);
+      --radius: 18px;
+      --radius-sm: 14px;
+
+      --container: 1100px;
+
+      --font-body: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      --font-head: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    html[data-theme="light"]{
+      --bg: #f6f9f7;
+      --surface: rgba(7,20,12,.05);
+      --surface-2: rgba(7,20,12,.08);
+      --stroke: rgba(7,20,12,.10);
+      --text: rgba(16,24,20,.92);
+      --muted: rgba(58,88,68,.78);
+      --title: #0b2b18;
+
+      --shadow: 0 16px 50px rgba(0,0,0,.10);
+    }
+
+    *{ box-sizing: border-box; }
+    html, body{ height: 100%; }
+    body{
+      margin:0;
+      font-family: var(--font-body);
+      color: var(--text);
+      background:
+        radial-gradient(1200px 600px at 10% -10%, color-mix(in oklab, var(--accent) 20%, transparent), transparent 55%),
+        radial-gradient(900px 500px at 110% 10%, color-mix(in oklab, var(--accent-2) 18%, transparent), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.02), transparent 30%),
+        var(--bg);
+      overflow-x: hidden;
+    }
+    h1,h2,h3{ font-family: var(--font-head); }
+    a{ color: inherit; text-decoration: none; }
+    .container{ width: min(var(--container), calc(100% - 32px)); margin: 0 auto; }
+
+    .scrollbar{
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      z-index: 1000;
+      box-shadow: 0 0 18px color-mix(in oklab, var(--accent) 45%, transparent);
+    }
+
+    .main-header{
+      position: sticky; top:0; z-index: 900;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: color-mix(in oklab, var(--bg) 70%, transparent);
+      border-bottom: 1px solid var(--stroke);
+    }
+    .header-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding: 14px 0; gap: 14px;
+    }
+    .logo{
+      display:flex; align-items:center; gap: 10px;
+      font-weight: 900; letter-spacing:.02em;
+    }
+    .logo-badge{
+      width: 34px; height: 34px; border-radius: 10px;
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 22%, transparent), color-mix(in oklab, var(--accent-2) 10%, transparent));
+      border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+      box-shadow: 0 14px 40px color-mix(in oklab, var(--accent) 12%, transparent);
+      display:grid; place-items:center; font-weight: 900; color: var(--title);
+    }
+    .main-nav{ display:flex; gap: 14px; align-items:center; }
+    .main-nav a{
+      padding: 8px 10px;
+      border-radius: 10px;
+      color: var(--muted);
+      font-weight: 800;
+      transition: background .2s ease, color .2s ease;
+    }
+    .main-nav a:hover{ color: var(--text); background: var(--surface); }
+    .main-nav a.buy-link{
+      color: var(--title);
+      background: var(--accent-soft);
+      border: 1px solid color-mix(in oklab, var(--accent) 25%, transparent);
+    }
+    .main-nav a.buy-link:hover{ background: color-mix(in oklab, var(--accent) 22%, transparent); }
+    .theme-toggle{
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      color: var(--text);
+      border-radius: 12px;
+      padding: 9px 10px;
+      display:flex; align-items:center; gap: 8px;
+      cursor:pointer;
+      transition: transform .12s ease, background .2s ease;
+    }
+    .theme-toggle:active{ transform: scale(.98); }
+    .theme-toggle .icon{ width:18px; height:18px; fill: currentColor; opacity:.9; }
+    .theme-toggle .moon{ display:none; }
+    html[data-theme="dark"] .theme-toggle .moon{ display:block; }
+    html[data-theme="dark"] .theme-toggle .sun{ display:none; }
+
+    @media (max-width: 820px){ .main-nav{ display:none; } }
+
+    main{ padding-bottom: 40px; }
+    .block{ padding: 22px 0; }
+    .card{
+      background: linear-gradient(180deg, var(--surface), transparent);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .hero{ padding: 34px 0 22px; position: relative; }
+    .orb{
+      position:absolute;
+      filter: blur(30px);
+      opacity: .55;
+      pointer-events:none;
+      border-radius: 999px;
+    }
+    .orb-a{ width:340px; height:340px; left:-140px; top:-140px; background: color-mix(in oklab, var(--accent) 22%, transparent); }
+    .orb-b{ width:260px; height:260px; right:-120px; top:40px; background: color-mix(in oklab, var(--accent-2) 18%, transparent); }
+
+    .page-title{
+      text-align:center;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 900;
+      color: var(--title);
+      margin: 10px 0 18px;
+      font-size: clamp(28px, 4vw, 44px);
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 18px;
+      align-items: stretch;
+      padding: 18px;
+    }
+    @media (max-width: 900px){ .hero-grid{ grid-template-columns: 1fr; } }
+
+    .product-media{
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 12%, transparent), color-mix(in oklab, var(--accent-2) 6%, transparent));
+      border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+      border-radius: var(--radius-sm);
+      padding: 16px;
+      display:grid;
+      place-items:center;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-img{ width: min(380px, 100%); height:auto; display:block; filter: drop-shadow(0 18px 40px rgba(0,0,0,.30)); }
+
+    .subtitle{
+      margin:0;
+      font-size: 14px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 900;
+    }
+    .headline{
+      margin:0;
+      font-size: clamp(22px, 2.6vw, 30px);
+      line-height: 1.15;
+      letter-spacing: .01em;
+    }
+    .md{ color: var(--muted); line-height: 1.75; font-size: 15.5px; }
+    .md p{ margin: 10px 0; }
+    .md ul, .md ol{ margin: 10px 0; padding-left: 18px; }
+    .md li{ margin: 6px 0; }
+
+    .pill-row{ display:flex; flex-wrap:wrap; gap:10px; margin-top: 8px; }
+    .pill{
+      display:inline-flex; align-items:center; gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+      background: color-mix(in oklab, var(--accent) 10%, transparent);
+      color: var(--title);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .btn-row{ display:flex; gap:10px; flex-wrap:wrap; margin-top: 10px; }
+    .btn{
+      border-radius: 12px;
+      padding: 11px 14px;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      color: var(--text);
+      font-weight: 900;
+      cursor:pointer;
+      transition: transform .12s ease, background .2s ease, border-color .2s ease;
+      display:inline-flex;
+      align-items:center;
+      gap: 10px;
+    }
+    .btn:active{ transform: scale(.98); }
+    .btn.primary{
+      background: linear-gradient(135deg, color-mix(in oklab, var(--accent) 20%, transparent), color-mix(in oklab, var(--accent-2) 12%, transparent));
+      border-color: color-mix(in oklab, var(--accent) 28%, transparent);
+      color: var(--title);
+    }
+    .btn.primary:hover{ background: color-mix(in oklab, var(--accent) 22%, transparent); }
+    .btn.ghost:hover{ background: var(--surface-2); }
+
+    .text-wrap{ padding: 18px; }
+    .block-title{ margin:0 0 8px; font-size: 22px; color: var(--title); letter-spacing: .01em; }
+
+    .img-card{ padding: 14px; display:grid; gap: 10px; }
+    .img-card img{
+      width: 100%;
+      height: auto;
+      display:block;
+      border-radius: 14px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.03);
+    }
+    .caption{ color: var(--muted); font-size: 13px; line-height:1.5; }
+
+    .gallery{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      padding: 14px;
+    }
+    @media (max-width: 900px){ .gallery{ grid-template-columns: repeat(2, 1fr);} }
+    @media (max-width: 560px){ .gallery{ grid-template-columns: 1fr;} }
+
+    .tabs-shell{
+      margin-top: 10px;
+      background: var(--surface);
+      border: 1px solid var(--stroke);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .tab-buttons{
+      display:flex; gap: 6px;
+      padding: 10px;
+      position: relative;
+      border-bottom: 1px solid var(--stroke);
+      background: color-mix(in oklab, var(--surface) 70%, transparent);
+      overflow-x:auto;
+      scrollbar-width:none;
+    }
+    .tab-buttons::-webkit-scrollbar{ display:none; }
+
+    .tab-btn{
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 900;
+      padding: 10px 12px;
+      border-radius: 12px;
+      cursor:pointer;
+      white-space: nowrap;
+      transition: background .2s ease, color .2s ease, border-color .2s ease;
+      outline: none;
+      position: relative;
+      z-index: 1;
+    }
+    .tab-btn:hover{ color: var(--text); background: var(--surface-2); }
+    .tab-btn[aria-selected="true"]{
+      color: var(--title);
+      background: color-mix(in oklab, var(--accent) 14%, transparent);
+      border-color: color-mix(in oklab, var(--accent) 22%, transparent);
+    }
+    .tab-indicator{
+      position:absolute;
+      height: 3px;
+      bottom: 0;
+      left: 10px;
+      width: 120px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      border-radius: 999px;
+      transition: transform .22s ease, width .22s ease;
+      box-shadow: 0 0 18px color-mix(in oklab, var(--accent) 45%, transparent);
+    }
+    .tab-content{ padding: 18px; }
+    .tab-panel{ display:none; animation: fadeUp .25s ease both; }
+    .tab-panel.active{ display:block; }
+    @keyframes fadeUp{ from{ opacity:0; transform: translateY(8px);} to{opacity:1; transform:none;} }
+
+    .nav-block{ display:flex; flex-wrap:wrap; gap:10px; padding: 14px; }
+    .nav-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+      background: color-mix(in oklab, var(--accent) 10%, transparent);
+      color: var(--title);
+      font-weight: 900;
+      transition: transform .12s ease, background .2s ease;
+    }
+    .nav-chip:hover{ background: color-mix(in oklab, var(--accent) 16%, transparent); }
+    .nav-chip:active{ transform: scale(.98); }
+
+    .main-footer{
+      margin-top: 26px;
+      border-top: 1px solid var(--stroke);
+      background: color-mix(in oklab, var(--bg) 80%, transparent);
+    }
+    .footer-inner{
+      display:flex; align-items:center; justify-content: space-between;
+      gap: 12px;
+      padding: 16px 0;
+      color: var(--muted);
+      font-weight: 800;
+      font-size: 14px;
+    }
+    .back-top{
+      width: 40px; height: 40px;
+      border-radius: 12px;
+      display:grid; place-items:center;
+      border: 1px solid var(--stroke);
+      background: var(--surface);
+      transition: transform .12s ease, background .2s ease;
+    }
+    .back-top:hover{ background: var(--surface-2); }
+    .back-top:active{ transform: scale(.98); }
+
+    .reveal{ opacity:0; transform: translateY(10px); transition: opacity .5s ease, transform .5s ease; }
+    .reveal.is-visible{ opacity:1; transform:none; }
+
+    .notice{
+      margin: 16px 0 0;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+      background: color-mix(in oklab, var(--accent) 10%, transparent);
+      color: var(--title);
+      font-weight: 800;
+      line-height: 1.55;
+    }
+    .notice code{
+      font-weight: 900;
+      color: var(--title);
+      background: rgba(0,0,0,.18);
+      padding: 2px 8px;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.10);
+    }
+  </style>
 </head>
+
 <body>
+  <div class="scrollbar" aria-hidden="true"></div>
 
-  <div class="scrollbar"></div>
-
-  <header class="main-header">
+  <header class="main-header" role="banner">
     <div class="container header-inner">
-      <a href="#" class="logo">PROCESO<span style="color:var(--primary)">.IO</span></a>
+      <a href="#top" class="logo" aria-label="Inicio">
+        <span class="logo-badge" id="logoBadge">S</span>
+        <span id="brandName">Spirulina</span>
+      </a>
 
-      <nav class="main-nav">
-        <a href="#inicio">Inicio</a>
-        <a href="#detalles">Detalles</a>
-        <a href="#proceso">Pasos</a>
-        <a href="#" class="buy-link">Comenzar</a>
-      </nav>
+      <nav class="main-nav" aria-label="Principal" id="headerNav"></nav>
 
-      <button class="theme-toggle" aria-label="Cambiar tema">
-        <div class="sun"></div>
-        <div class="moon"></div>
+      <button class="theme-toggle" aria-label="Cambiar tema" id="themeToggle" type="button">
+        <svg class="icon sun" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M12 4.5a1 1 0 0 0 1-1V2a1 1 0 1 0-2 0v1.5a1 1 0 0 0 1 1Zm0 17a1 1 0 0 0-1 1V24a1 1 0 1 0 2 0v-1.5a1 1 0 0 0-1-1ZM4.5 13a1 1 0 0 0-1-1H2a1 1 0 1 0 0 2h1.5a1 1 0 0 0 1-1Zm17 0a1 1 0 0 0 1-1H24a1 1 0 1 0 0 2h-1.5a1 1 0 0 0-1-1ZM5.64 6.05a1 1 0 0 0 0-1.41L4.58 3.58A1 1 0 1 0 3.16 5l1.06 1.06a1 1 0 0 0 1.41 0Zm12.72 12.9a1 1 0 0 0 0 1.41l1.06 1.06A1 1 0 0 0 21.84 20l-1.06-1.06a1 1 0 0 0-1.41 0ZM18.36 6.05a1 1 0 0 0 1.41 0L20.84 5A1 1 0 0 0 19.42 3.58l-1.06 1.06a1 1 0 0 0 0 1.41ZM5.64 17.95a1 1 0 0 0-1.41 0L3.16 19A1 1 0 1 0 4.58 20.42l1.06-1.06a1 1 0 0 0 0-1.41Z"/>
+          <circle cx="12" cy="12" r="4"></circle>
+        </svg>
+        <svg class="icon moon" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M21 13.35A8.5 8.5 0 1 1 10.65 3a7 7 0 1 0 10.35 10.35Z"/>
+        </svg>
+        <span style="font-weight:900; color: var(--muted); font-size: 13px;">Tema</span>
       </button>
     </div>
   </header>
 
-  <main>
-
-    <section id="inicio" class="product-hero">
-      <div class="orb orb-a"></div>
-      <div class="orb orb-b"></div>
-
-      <div class="container grid-container">
-        
-        <div class="product-details">
-          <p class="product-sub reveal" id="hero-subtitle">Claro · Secuencial · Repetible</p>
-          <h1 class="reveal" id="hero-title">Guía Maestra del Proceso</h1>
-          <p class="product-description reveal" id="hero-desc">
-            Esta es la estructura base. El contenido real se cargará automáticamente desde el CMS una vez lo configures. Sigue los pasos para el éxito.
-          </p>
-          
-          <div class="cta-row reveal">
-            <a href="#proceso" class="cta-button">
-              <span class="shine"></span>
-              Ver los Pasos
-            </a>
-            <a href="#detalles" class="ghost-btn">Más info</a>
-          </div>
-
-          <div class="trust-list reveal">
-            <small>✓ Verificado</small>
-            <small>✓ Actualizado</small>
-            <small>✓ Seguro</small>
-          </div>
-        </div>
-
-        <div class="product-card tilt reveal">
-          <div class="card-glow"></div>
-          <img src="image/producto.png" alt="Imagen Principal" class="product-img" id="hero-img" />
-        </div>
-
-      </div>
-    </section>
-
-    <section id="detalles" class="container">
-      <div class="tabs">
-        
-        <div class="tab-buttons">
-          <button class="tab-btn active" data-target="#panel-resumen">Resumen</button>
-          <button class="tab-btn" data-target="#panel-materiales">Materiales</button>
-          <button class="tab-btn" data-target="#panel-notas">Notas</button>
-          <div class="tab-indicator"></div>
-        </div>
-
-        <div class="tab-panel active reveal" id="panel-resumen">
-          <h2 id="resumen-title">Panorama General</h2>
-          <p class="product-description" id="resumen-text">
-            Aquí aparecerá el resumen ejecutivo del proceso cargado desde tu panel de administración.
-          </p>
-        </div>
-
-        <div class="tab-panel reveal" id="panel-materiales">
-          <h3>Lo que necesitas</h3>
-          <ul class="grid-bullets" id="materiales-list">
-            <li>Elemento de ejemplo 1</li>
-            <li>Elemento de ejemplo 2</li>
-            <li>Elemento de ejemplo 3</li>
-          </ul>
-        </div>
-
-        <div class="tab-panel reveal" id="panel-notas">
-          <h3>Consideraciones</h3>
-          <ol class="steps" id="notas-list">
-            <li>Nota importante número 1.</li>
-            <li>Nota importante número 2.</li>
-          </ol>
-        </div>
-
-      </div>
-    </section>
-
-    <section id="proceso" class="process-section">
-      <div class="container">
-        
-        <div class="process-head reveal">
-          <span class="pill muted">El Flujo</span>
-          <h2>Ejecución Paso a Paso</h2>
-        </div>
-
-        <div class="stepper reveal">
-          <div class="stepper-track"><span class="stepper-progress"></span></div>
-          
-          <div class="stepper-item active"><button class="stepper-btn" onclick="scrollToStep('paso-1')"><span class="step-index">1</span><span class="step-label">Inicio</span></button></div>
-          <div class="stepper-item"><button class="stepper-btn" onclick="scrollToStep('paso-2')"><span class="step-index">2</span><span class="step-label">Preparar</span></button></div>
-          <div class="stepper-item"><button class="stepper-btn" onclick="scrollToStep('paso-3')"><span class="step-index">3</span><span class="step-label">Ejecutar</span></button></div>
-          <div class="stepper-item"><button class="stepper-btn" onclick="scrollToStep('paso-4')"><span class="step-index">4</span><span class="step-label">Revisar</span></button></div>
-          <div class="stepper-item"><button class="stepper-btn" onclick="scrollToStep('paso-5')"><span class="step-index">5</span><span class="step-label">Cierre</span></button></div>
-        </div>
-
-        <div class="steps-grid">
-
-          <article class="step-card reveal" id="paso-1">
-            <div class="step-content">
-              <div class="step-header">
-                <span class="pill">Paso 01</span>
-                <h3>Definición Inicial</h3>
-                <p class="muted">Configuración básica del entorno.</p>
-              </div>
-              <div class="step-body">
-                <ul class="checklist">
-                  <li>Tarea pendiente...</li>
-                  <li>Tarea pendiente...</li>
-                </ul>
-                <div class="step-hint">
-                  <strong>Tip:</strong> Sigue las instrucciones del CMS.
-                </div>
-              </div>
-            </div>
-            <div class="step-illustration tilt">
-              <img src="image/producto.png" alt="Ilustración paso 1" class="product-img">
-            </div>
-          </article>
-
-          <article class="step-card reveal" id="paso-2">
-            <div class="step-content">
-              <div class="step-header">
-                <span class="pill">Paso 02</span>
-                <h3>Preparación</h3>
-                <p class="muted">Recolección de datos.</p>
-              </div>
-              <div class="step-body">
-                <ul class="checklist">
-                  <li>Tarea pendiente...</li>
-                </ul>
-                <div class="step-hint"><strong>Tip:</strong> Revisa dos veces.</div>
-              </div>
-            </div>
-            <div class="step-illustration tilt">
-              <img src="image/producto.png" alt="Ilustración paso 2" class="product-img">
-            </div>
-          </article>
-
-          <article class="step-card reveal" id="paso-3">
-            <div class="step-content">
-              <div class="step-header">
-                <span class="pill">Paso 03</span>
-                <h3>Ejecución Principal</h3>
-                <p class="muted">El núcleo del trabajo.</p>
-              </div>
-              <div class="step-body">
-                <ul class="checklist">
-                  <li>Acción principal</li>
-                  <li>Validación inmediata</li>
-                </ul>
-                <div class="step-hint">Mantén la concentración.</div>
-              </div>
-            </div>
-            <div class="step-illustration tilt">
-              <img src="image/producto.png" alt="Ilustración paso 3" class="product-img">
-            </div>
-          </article>
-
-          <article class="step-card reveal" id="paso-4">
-            <div class="step-content">
-              <div class="step-header">
-                <span class="pill">Paso 04</span>
-                <h3>Control de Calidad</h3>
-                <p class="muted">Verificación de errores.</p>
-              </div>
-              <div class="step-body">
-                <ul class="checklist">
-                  <li>Test de estrés</li>
-                  <li>Corrección de bugs</li>
-                </ul>
-              </div>
-            </div>
-            <div class="step-illustration tilt">
-              <img src="image/producto.png" alt="Ilustración paso 4" class="product-img">
-            </div>
-          </article>
-
-          <article class="step-card reveal" id="paso-5">
-            <div class="step-content">
-              <div class="step-header">
-                <span class="pill">Paso 05</span>
-                <h3>Entrega Final</h3>
-                <p class="muted">Despliegue y documentación.</p>
-              </div>
-              <div class="step-body">
-                <ul class="checklist">
-                  <li>Empaquetado</li>
-                  <li>Envío al cliente</li>
-                </ul>
-                <div class="step-hint">¡Felicidades por terminar!</div>
-              </div>
-            </div>
-            <div class="step-illustration tilt">
-              <img src="image/producto.png" alt="Ilustración paso 5" class="product-img">
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
+  <main id="top">
+    <div class="container" id="noticeMount"></div>
+    <div id="blocks"></div>
   </main>
 
-  <footer class="main-footer container">
-    <p>&copy; 2024 Proceso Digital. Todos los derechos reservados.</p>
-    <a href="#" class="back-top" aria-label="Volver arriba">↑</a>
+  <footer class="main-footer" role="contentinfo">
+    <div class="container footer-inner">
+      <p style="margin:0;" id="footerText">&copy; 2026. Todos los derechos reservados.</p>
+      <a href="#top" class="back-top" aria-label="Volver arriba">↑</a>
+    </div>
   </footer>
 
-  <script src="js/script.js"></script>
-
   <script>
-    function scrollToStep(id) {
-      document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-  </script>
+    const $ = (sel, root=document) => root.querySelector(sel);
 
-  <script>
-    if (window.netlifyIdentity) {
-      window.netlifyIdentity.on("init", user => {
-        if (!user) {
-          window.netlifyIdentity.on("login", () => {
-            document.location.href = "/admin/";
-          });
+    // ✅ DEMO DATA (si fetch falla, igual se ve contenido y el CMS también lo tendrá en JSON)
+    const DEFAULT_SETTINGS = {
+      seoTitle: "Spirulina · Ficha del Producto",
+      seoDescription: "Página editable (sin código): textos, imágenes, tabs, colores y tipografías.",
+      brandName: "Spirulina",
+      logoBadge: "S",
+      defaultTheme: "dark",
+      accent: "#37d67a",
+      accent2: "#1fbf6a",
+      containerWidth: 1100,
+      fontBody: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
+      fontHead: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
+      googleFontsUrl: "",
+      headerNavItems: [
+        { label: "Producto", href: "#producto", isPrimary: false },
+        { label: "Beneficios", href: "#beneficios", isPrimary: false },
+        { label: "Información", href: "#info", isPrimary: true }
+      ],
+      footerText: "© 2026. Todos los derechos reservados."
+    };
+
+    const DEFAULT_PAGE = {
+      blocks: [
+        {
+          type: "hero",
+          id: "producto",
+          title: "Spirulina",
+          subtitle: "Contenido de ejemplo (edítame en el CMS)",
+          headline: "Este texto es inventado para que el editor sepa qué cambiar.",
+          body: "✅ Aquí puedes escribir una **introducción**.\n\n- Puedes poner listas\n- Negritas\n- Y párrafos\n\n**Tip:** reemplaza este texto por tu descripción real.",
+          image: "assets/uploads/demo-product.svg",
+          imageAlt: "Imagen demo",
+          pills: ["🌿 Natural", "🥤 Fácil de mezclar", "✨ Rutina diaria"],
+          buttons: [
+            { label: "Ver información", href: "#info", variant: "primary" },
+            { label: "Ir a beneficios", href: "#beneficios", variant: "ghost" }
+          ]
+        },
+        {
+          type: "nav",
+          id: "navegacion",
+          items: [
+            { label: "📌 Producto", href: "#producto" },
+            { label: "💚 Beneficios", href: "#beneficios" },
+            { label: "📋 Tabs", href: "#info" }
+          ]
+        },
+        {
+          type: "text",
+          id: "beneficios",
+          title: "Beneficios (demo)",
+          body: "Este bloque es solo un **ejemplo**.\n\n- ✅ Beneficio 1 (inventado)\n- ✅ Beneficio 2 (inventado)\n- ✅ Beneficio 3 (inventado)\n\nCambia lo que quieras desde el panel /admin."
+        },
+        {
+          type: "image",
+          id: "imagen-demo",
+          title: "Bloque de imagen (demo)",
+          image: "assets/uploads/demo-1.svg",
+          alt: "Imagen demo 1",
+          caption: "Ejemplo: aquí va un caption opcional."
+        },
+        {
+          type: "tabs",
+          id: "info",
+          title: "Información del producto (demo)",
+          ariaLabel: "Tabs de producto",
+          tabs: [
+            {
+              label: "Descripción",
+              body: "Contenido inventado para **Descripción**.\n\nAquí puedes explicar qué es el producto, beneficios generales y contexto."
+            },
+            {
+              label: "Información nutricional",
+              body: "Contenido inventado para **Información nutricional**.\n\nEjemplo:\n\n- Porción: 5g\n- Proteína: Xg\n- Nota: *revisar etiqueta real*."
+            },
+            {
+              label: "Modo de uso",
+              body: "Contenido inventado para **Modo de uso**.\n\n1) Mezcla 1 cucharadita\n2) En 250ml de agua o batido\n3) Ajusta al gusto"
+            }
+          ]
+        },
+        {
+          type: "gallery",
+          id: "galeria",
+          title: "Galería (demo)",
+          images: [
+            { image: "assets/uploads/demo-2.svg", alt: "Demo 2" },
+            { image: "assets/uploads/demo-3.svg", alt: "Demo 3" },
+            { image: "assets/uploads/demo-1.svg", alt: "Demo 1" }
+          ]
         }
+      ]
+    };
+
+    function safeText(str){ return (str ?? "").toString(); }
+
+    function mdToHtml(md){
+      const s = (md ?? "").toString();
+      if (window.marked) return marked.parse(s);
+      return s.replace(/[&<>]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;'}[m])).replace(/\n/g, "<br>");
+    }
+
+    // ✅ Si CMS guarda rutas como "/assets/uploads/...", esto lo hace funcionar también en file://
+    function normalizePath(p){
+      if (!p) return p;
+      if (location.protocol === "file:" && p.startsWith("/")) return p.slice(1);
+      return p;
+    }
+
+    function showNoticeIfFileProtocol(){
+      if (location.protocol !== "file:") return;
+      const mount = $("#noticeMount");
+      mount.innerHTML = `
+        <div class="notice">
+          Estás abriendo el archivo con <code>file://</code>. En este modo, el navegador puede bloquear la carga de <code>content/page.json</code>.<br>
+          Por eso activé un <b>modo demo</b> para que no se vea vacío.<br><br>
+          Para ver el contenido real desde los JSON, abre con un servidor local (ej: VS Code “Live Server” o <code>python -m http.server</code>).
+        </div>
+      `;
+    }
+
+    function applySettings(settings){
+      if (settings.seoTitle) document.title = settings.seoTitle;
+      const metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc && settings.seoDescription) metaDesc.setAttribute("content", settings.seoDescription);
+
+      $("#brandName").textContent = settings.brandName || "Spirulina";
+      $("#logoBadge").textContent = (settings.logoBadge || "S").slice(0,2);
+      $("#footerText").textContent = settings.footerText || "© 2026. Todos los derechos reservados.";
+
+      const r = document.documentElement.style;
+      if (settings.accent) r.setProperty("--accent", settings.accent);
+      if (settings.accent2) r.setProperty("--accent-2", settings.accent2);
+      if (settings.containerWidth) r.setProperty("--container", settings.containerWidth + "px");
+      if (settings.fontBody) r.setProperty("--font-body", settings.fontBody);
+      if (settings.fontHead) r.setProperty("--font-head", settings.fontHead);
+
+      if (settings.googleFontsUrl){
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = settings.googleFontsUrl;
+        document.head.appendChild(link);
+      }
+
+      const nav = $("#headerNav");
+      nav.innerHTML = "";
+      (settings.headerNavItems || []).forEach(item => {
+        const a = document.createElement("a");
+        a.href = item.href || "#top";
+        a.textContent = item.label || "Link";
+        if (item.isPrimary) a.classList.add("buy-link");
+        nav.appendChild(a);
+      });
+
+      const root = document.documentElement;
+      const saved = localStorage.getItem("theme");
+      const initial = saved || settings.defaultTheme || root.getAttribute("data-theme") || "dark";
+      root.setAttribute("data-theme", initial);
+    }
+
+    function fallbackImg(img){
+      img.onerror = () => {
+        img.onerror = null;
+        const svg = encodeURIComponent(`
+          <svg xmlns="http://www.w3.org/2000/svg" width="900" height="700">
+            <defs>
+              <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="rgba(55,214,122,0.35)"/>
+                <stop offset="1" stop-color="rgba(31,191,106,0.15)"/>
+              </linearGradient>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#g)"/>
+            <text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle"
+              font-family="Arial" font-size="34" fill="rgba(255,255,255,0.85)">Imagen no encontrada</text>
+          </svg>
+        `);
+        img.src = "data:image/svg+xml;charset=utf-8," + svg;
+      };
+    }
+
+    function renderHero(block, i){
+      const section = document.createElement("section");
+      section.className = "hero";
+      section.id = (block.id || "producto");
+
+      section.innerHTML = `
+        <div class="orb orb-a" aria-hidden="true"></div>
+        <div class="orb orb-b" aria-hidden="true"></div>
+        <div class="container">
+          <h1 class="page-title reveal">${safeText(block.title || "Spirulina")}</h1>
+          <div class="card">
+            <div class="hero-grid">
+              <div class="product-media reveal">
+                <img class="product-img" alt="${safeText(block.imageAlt || "Producto")}" />
+              </div>
+
+              <div class="block-inner">
+                <p class="subtitle reveal">${safeText(block.subtitle || "")}</p>
+                <h2 class="headline reveal">${safeText(block.headline || "")}</h2>
+                <div class="md reveal">${mdToHtml(block.body || "")}</div>
+
+                <div class="pill-row reveal"></div>
+                <div class="btn-row reveal"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      const img = section.querySelector(".product-img");
+      img.src = normalizePath(block.image || "");
+      fallbackImg(img);
+
+      const pillRow = section.querySelector(".pill-row");
+      (block.pills || []).forEach(p => {
+        const span = document.createElement("span");
+        span.className = "pill";
+        span.textContent = p;
+        pillRow.appendChild(span);
+      });
+
+      const btnRow = section.querySelector(".btn-row");
+      (block.buttons || []).forEach(btn => {
+        const a = document.createElement("a");
+        a.className = "btn " + (btn.variant === "primary" ? "primary" : "ghost");
+        a.href = btn.href || "#top";
+        a.textContent = btn.label || "Ver";
+        btnRow.appendChild(a);
+      });
+
+      return section;
+    }
+
+    function renderText(block){
+      const section = document.createElement("section");
+      section.className = "block";
+      if (block.id) section.id = block.id;
+
+      section.innerHTML = `
+        <div class="container">
+          <div class="card reveal">
+            <div class="text-wrap">
+              ${block.title ? `<h2 class="block-title">${safeText(block.title)}</h2>` : ""}
+              <div class="md">${mdToHtml(block.body || "")}</div>
+            </div>
+          </div>
+        </div>
+      `;
+      return section;
+    }
+
+    function renderImage(block){
+      const section = document.createElement("section");
+      section.className = "block";
+      if (block.id) section.id = block.id;
+
+      section.innerHTML = `
+        <div class="container">
+          <div class="card reveal">
+            <div class="img-card">
+              ${block.title ? `<h2 class="block-title" style="margin:0;">${safeText(block.title)}</h2>` : ""}
+              <img alt="${safeText(block.alt || "")}" />
+              ${block.caption ? `<div class="caption">${safeText(block.caption)}</div>` : ""}
+            </div>
+          </div>
+        </div>
+      `;
+
+      const img = section.querySelector("img");
+      img.src = normalizePath(block.image || "");
+      fallbackImg(img);
+      return section;
+    }
+
+    function renderGallery(block){
+      const section = document.createElement("section");
+      section.className = "block";
+      if (block.id) section.id = block.id;
+
+      section.innerHTML = `
+        <div class="container">
+          ${block.title ? `<h2 class="block-title reveal" style="margin-bottom:10px;">${safeText(block.title)}</h2>` : ""}
+          <div class="card reveal">
+            <div class="gallery"></div>
+          </div>
+        </div>
+      `;
+
+      const grid = section.querySelector(".gallery");
+      (block.images || []).forEach(it => {
+        const wrap = document.createElement("div");
+        wrap.className = "img-card";
+        wrap.style.padding = "0";
+        wrap.innerHTML = `<img alt="${safeText(it.alt || "")}">`;
+        const img = wrap.querySelector("img");
+        img.src = normalizePath(it.image || "");
+        fallbackImg(img);
+        grid.appendChild(wrap);
+      });
+
+      return section;
+    }
+
+    function renderNav(block){
+      const section = document.createElement("section");
+      section.className = "block";
+      if (block.id) section.id = block.id;
+
+      section.innerHTML = `
+        <div class="container">
+          <div class="card reveal">
+            <div class="nav-block"></div>
+          </div>
+        </div>
+      `;
+
+      const nav = section.querySelector(".nav-block");
+      (block.items || []).forEach(it => {
+        const a = document.createElement("a");
+        a.className = "nav-chip";
+        a.href = it.href || "#top";
+        a.textContent = it.label || "Ir";
+        nav.appendChild(a);
+      });
+
+      return section;
+    }
+
+    function renderTabs(block, index){
+      const uid = `tabs-${index}`;
+      const section = document.createElement("section");
+      section.className = "block";
+      if (block.id) section.id = block.id;
+
+      section.innerHTML = `
+        <div class="container">
+          ${block.title ? `<h2 class="block-title reveal" style="margin-bottom:10px;">${safeText(block.title)}</h2>` : ""}
+          <div class="tabs-shell reveal" data-tabs="${uid}">
+            <div class="tab-buttons" role="tablist" aria-label="${safeText(block.ariaLabel || "Pestañas")}">
+              <span class="tab-indicator" aria-hidden="true"></span>
+            </div>
+            <div class="tab-content"></div>
+          </div>
+        </div>
+      `;
+
+      const shell = section.querySelector(`[data-tabs="${uid}"]`);
+      const buttons = shell.querySelector(".tab-buttons");
+      const indicator = shell.querySelector(".tab-indicator");
+      const content = shell.querySelector(".tab-content");
+
+      const tabs = block.tabs || [];
+      tabs.forEach((t, i) => {
+        const btn = document.createElement("button");
+        btn.className = "tab-btn";
+        btn.type = "button";
+        btn.role = "tab";
+        btn.id = `${uid}-tab-${i}`;
+        btn.setAttribute("aria-selected", i === 0 ? "true" : "false");
+        btn.setAttribute("aria-controls", `${uid}-panel-${i}`);
+        btn.textContent = t.label || `Tab ${i+1}`;
+        buttons.appendChild(btn);
+
+        const panel = document.createElement("section");
+        panel.className = "tab-panel" + (i === 0 ? " active" : "");
+        panel.id = `${uid}-panel-${i}`;
+        panel.role = "tabpanel";
+        panel.setAttribute("aria-labelledby", btn.id);
+        panel.innerHTML = `<div class="md">${mdToHtml(t.body || "")}</div>`;
+        content.appendChild(panel);
+      });
+
+      function setIndicator(btn){
+        const r = btn.getBoundingClientRect();
+        const parentR = buttons.getBoundingClientRect();
+        const left = r.left - parentR.left + buttons.scrollLeft;
+        indicator.style.transform = `translateX(${left}px)`;
+        indicator.style.width = `${r.width}px`;
+      }
+
+      function activate(btn){
+        const allBtns = Array.from(buttons.querySelectorAll(".tab-btn"));
+        const panels = Array.from(content.querySelectorAll(".tab-panel"));
+        const idx = allBtns.indexOf(btn);
+        allBtns.forEach(b => b.setAttribute("aria-selected", String(b === btn)));
+        panels.forEach((p, i) => p.classList.toggle("active", i === idx));
+        setIndicator(btn);
+      }
+
+      const firstBtn = buttons.querySelector(".tab-btn");
+      if (firstBtn) requestAnimationFrame(() => setIndicator(firstBtn));
+
+      buttons.addEventListener("click", (e) => {
+        const btn = e.target.closest(".tab-btn");
+        if (!btn) return;
+        activate(btn);
+      });
+
+      window.addEventListener("resize", () => {
+        const current = buttons.querySelector('.tab-btn[aria-selected="true"]') || firstBtn;
+        if (current) setIndicator(current);
+      });
+
+      return section;
+    }
+
+    function renderBlocks(page){
+      const root = $("#blocks");
+      root.innerHTML = "";
+
+      (page.blocks || []).forEach((block, i) => {
+        let el = null;
+        if (block.type === "hero") el = renderHero(block, i);
+        else if (block.type === "text") el = renderText(block);
+        else if (block.type === "image") el = renderImage(block);
+        else if (block.type === "gallery") el = renderGallery(block);
+        else if (block.type === "tabs") el = renderTabs(block, i);
+        else if (block.type === "nav") el = renderNav(block);
+        if (el) root.appendChild(el);
       });
     }
-  </script>
 
+    function initReveal(){
+      const els = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+          if (en.isIntersecting){
+            en.target.classList.add("is-visible");
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      els.forEach(el => io.observe(el));
+    }
+
+    function initThemeToggle(){
+      const root = document.documentElement;
+      $("#themeToggle").addEventListener("click", () => {
+        const next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+      });
+    }
+
+    function initScrollProgress(){
+      const bar = $(".scrollbar");
+      const update = () => {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const p = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        bar.style.width = p.toFixed(2) + "%";
+      };
+      window.addEventListener("scroll", update, { passive:true });
+      window.addEventListener("resize", update);
+      update();
+    }
+
+    (async function(){
+      initThemeToggle();
+      initScrollProgress();
+
+      let settings = DEFAULT_SETTINGS;
+      let page = DEFAULT_PAGE;
+
+      try{
+        const qs = "?v=" + Date.now();
+        const [settingsRes, pageRes] = await Promise.all([
+          fetch("content/settings.json" + qs),
+          fetch("content/page.json" + qs),
+        ]);
+
+        if (!settingsRes.ok || !pageRes.ok) throw new Error("No se pudieron cargar los JSON.");
+        settings = await settingsRes.json();
+        page = await pageRes.json();
+      }catch(err){
+        showNoticeIfFileProtocol();
+        // Si estás en Netlify y falla, igual verás el demo (y no una pantalla vacía)
+        console.warn("Usando contenido DEMO por error de carga:", err);
+      }
+
+      applySettings(settings);
+      renderBlocks(page);
+      initReveal();
+    })();
+  </script>
 </body>
 </html>
