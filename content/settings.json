@@ -1,17 +1,26 @@
 {
-  "seoTitle": "Spirulina · Ficha del Producto (DEMO)",
-  "seoDescription": "Edita textos, tabs, imágenes, colores y tipografías desde /admin sin tocar código.",
+  "containerWidth": 1100,
+  "defaultTheme": "light",
+  "accent2": "#1fbf6a",
+  "footerText": "© 2026. Todos los derechos reservados.",
+  "accent": "#37d67a",
+  "headerNavItems": [
+    {
+      "label": "Producto",
+      "href": "#producto"
+    },
+    {
+      "label": "Beneficios",
+      "href": "#beneficios"
+    },
+    {
+      "label": "Tabs",
+      "href": "#info"
+    }
+  ],
+  "font": "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
   "brandName": "Spirulina",
   "logoBadge": "S",
-  "defaultTheme": "dark",
-  "accent": "#37d67a",
-  "accent2": "#1fbf6a",
-  "containerWidth": 1100,
-  "font": "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
-  "headerNavItems": [
-    { "label": "Producto", "href": "#producto" },
-    { "label": "Beneficios", "href": "#beneficios" },
-    { "label": "Tabs", "href": "#info" }
-  ],
-  "footerText": "© 2026. Todos los derechos reservados."
+  "seoTitle": "Spirulina · Ficha del Producto (DEMO)",
+  "seoDescription": "Edita textos, tabs, imágenes, colores y tipografías desde /admin sin tocar código."
 }
