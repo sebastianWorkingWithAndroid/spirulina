@@ -2,50 +2,45 @@ backend:
   name: git-gateway
   branch: main
 
-publish_mode: editorial_workflow
-
 media_folder: "assets/uploads"
 public_folder: "/assets/uploads"
 
+locale: "es"
+
 collections:
-  - name: "content"
-    label: "Contenido del sitio"
+  - name: "site"
+    label: "Sitio"
     files:
       - name: "settings"
-        label: "Ajustes (colores, tipografía, header, footer)"
+        label: "Ajustes"
         file: "content/settings.json"
         format: "json"
         fields:
-          - { label: "Título SEO", name: "seoTitle", widget: "string" }
-          - { label: "Descripción SEO", name: "seoDescription", widget: "text" }
-
-          - { label: "Nombre de marca", name: "brandName", widget: "string" }
-          - { label: "Inicial del logo (badge)", name: "logoBadge", widget: "string", default: "S" }
-
-          - { label: "Tema por defecto", name: "defaultTheme", widget: "select", options: ["dark","light"], default: "dark" }
-
-          - { label: "Color principal (accent)", name: "accent", widget: "color", default: "#37d67a" }
-          - { label: "Color secundario (accent2)", name: "accent2", widget: "color", default: "#1fbf6a" }
-
-          - { label: "Ancho máximo del contenedor (px)", name: "containerWidth", widget: "number", default: 1100, value_type: "int", min: 860, max: 1400 }
-
-          - { label: "Font Body (CSS)", name: "fontBody", widget: "string", default: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" }
-          - { label: "Font Heading (CSS)", name: "fontHead", widget: "string", default: "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" }
-          - { label: "Google Fonts URL (opcional)", name: "googleFontsUrl", widget: "string", required: false }
-
+          - { label: "SEO Title", name: "seoTitle", widget: "string" }
+          - { label: "SEO Description", name: "seoDescription", widget: "text" }
+          - { label: "Marca", name: "brandName", widget: "string" }
+          - { label: "Logo (1-2 letras)", name: "logoBadge", widget: "string" }
+          - label: "Tema por defecto"
+            name: "defaultTheme"
+            widget: "select"
+            options: ["light", "dark"]
+          - { label: "Color principal", name: "accent", widget: "color" }
+          - { label: "Color secundario", name: "accent2", widget: "color" }
+          - { label: "Ancho contenedor", name: "containerWidth", widget: "number", value_type: "int", min: 320, max: 1400 }
+          - { label: "Fuente", name: "font", widget: "string", required: false }
           - label: "Links del header"
             name: "headerNavItems"
             widget: "list"
-            summary: "{{fields.label}} → {{fields.href}}"
             fields:
               - { label: "Texto", name: "label", widget: "string" }
-              - { label: "Href", name: "href", widget: "string", hint: "Ej: #producto, #beneficios" }
-              - { label: "Destacar como principal", name: "isPrimary", widget: "boolean", default: false }
+              - { label: "Href", name: "href", widget: "string" }
+          - { label: "Footer", name: "footerText", widget: "string" }
 
-          - { label: "Texto del footer", name: "footerText", widget: "string", default: "© 2026. Todos los derechos reservados." }
-
+  - name: "page"
+    label: "Página"
+    files:
       - name: "page"
-        label: "Página (bloques)"
+        label: "Contenido"
         file: "content/page.json"
         format: "json"
         fields:
@@ -53,19 +48,22 @@ collections:
             name: "blocks"
             widget: "list"
             types:
-              - label: "Hero (Producto)"
+              - label: "Hero"
                 name: "hero"
                 widget: "object"
                 fields:
-                  - { label: "ID de sección (anchor)", name: "id", widget: "string", required: false }
-                  - { label: "type", name: "type", widget: "hidden", default: "hero" }
-                  - { label: "Título grande", name: "title", widget: "string" }
-                  - { label: "Subtítulo", name: "subtitle", widget: "string" }
-                  - { label: "Headline", name: "headline", widget: "string" }
-                  - { label: "Descripción (Markdown)", name: "body", widget: "markdown" }
+                  - { label: "Mostrar", name: "enabled", widget: "boolean", default: true }
+                  - { label: "ID (ancla)", name: "id", widget: "string", required: false }
+                  - { label: "Título", name: "title", widget: "string" }
+                  - { label: "Subtítulo", name: "subtitle", widget: "string", required: false }
+                  - { label: "Headline", name: "headline", widget: "string", required: false }
+                  - { label: "Texto", name: "body", widget: "markdown" }
                   - { label: "Imagen", name: "image", widget: "image", required: false }
-                  - { label: "Alt de imagen", name: "imageAlt", widget: "string", required: false }
-                  - { label: "Píldoras (chips)", name: "pills", widget: "list", required: false }
+                  - { label: "Alt imagen", name: "imageAlt", widget: "string", required: false }
+                  - label: "Pills"
+                    name: "pills"
+                    widget: "list"
+                    required: false
                   - label: "Botones"
                     name: "buttons"
                     widget: "list"
@@ -73,34 +71,37 @@ collections:
                     fields:
                       - { label: "Texto", name: "label", widget: "string" }
                       - { label: "Href", name: "href", widget: "string" }
-                      - { label: "Variante", name: "variant", widget: "select", options: ["primary","ghost"], default: "primary" }
+                      - label: "Estilo"
+                        name: "variant"
+                        widget: "select"
+                        options: ["primary", "ghost"]
 
-              - label: "Bloque de texto"
+              - label: "Texto"
                 name: "text"
                 widget: "object"
                 fields:
-                  - { label: "ID de sección (anchor)", name: "id", widget: "string", required: false }
-                  - { label: "type", name: "type", widget: "hidden", default: "text" }
+                  - { label: "Mostrar", name: "enabled", widget: "boolean", default: true }
+                  - { label: "ID (ancla)", name: "id", widget: "string", required: false }
                   - { label: "Título", name: "title", widget: "string", required: false }
-                  - { label: "Contenido (Markdown)", name: "body", widget: "markdown" }
+                  - { label: "Texto", name: "body", widget: "markdown" }
 
-              - label: "Bloque de imagen"
+              - label: "Imagen"
                 name: "image"
                 widget: "object"
                 fields:
-                  - { label: "ID de sección (anchor)", name: "id", widget: "string", required: false }
-                  - { label: "type", name: "type", widget: "hidden", default: "image" }
-                  - { label: "Título (opcional)", name: "title", widget: "string", required: false }
+                  - { label: "Mostrar", name: "enabled", widget: "boolean", default: true }
+                  - { label: "ID (ancla)", name: "id", widget: "string", required: false }
+                  - { label: "Título", name: "title", widget: "string", required: false }
                   - { label: "Imagen", name: "image", widget: "image" }
                   - { label: "Alt", name: "alt", widget: "string", required: false }
-                  - { label: "Caption (opcional)", name: "caption", widget: "string", required: false }
+                  - { label: "Caption", name: "caption", widget: "string", required: false }
 
               - label: "Galería"
                 name: "gallery"
                 widget: "object"
                 fields:
-                  - { label: "ID de sección (anchor)", name: "id", widget: "string", required: false }
-                  - { label: "type", name: "type", widget: "hidden", default: "gallery" }
+                  - { label: "Mostrar", name: "enabled", widget: "boolean", default: true }
+                  - { label: "ID (ancla)", name: "id", widget: "string", required: false }
                   - { label: "Título", name: "title", widget: "string", required: false }
                   - label: "Imágenes"
                     name: "images"
@@ -113,24 +114,23 @@ collections:
                 name: "tabs"
                 widget: "object"
                 fields:
-                  - { label: "ID de sección (anchor)", name: "id", widget: "string", required: false }
-                  - { label: "type", name: "type", widget: "hidden", default: "tabs" }
+                  - { label: "Mostrar", name: "enabled", widget: "boolean", default: true }
+                  - { label: "ID (ancla)", name: "id", widget: "string", required: false }
                   - { label: "Título", name: "title", widget: "string", required: false }
-                  - { label: "ARIA label", name: "ariaLabel", widget: "string", required: false }
+                  - { label: "Aria label", name: "ariaLabel", widget: "string", required: false }
                   - label: "Pestañas"
                     name: "tabs"
                     widget: "list"
-                    min: 2
                     fields:
                       - { label: "Label", name: "label", widget: "string" }
-                      - { label: "Contenido (Markdown)", name: "body", widget: "markdown" }
+                      - { label: "Contenido", name: "body", widget: "markdown" }
 
-              - label: "Nav (chips)"
+              - label: "Navegación"
                 name: "nav"
                 widget: "object"
                 fields:
-                  - { label: "ID de sección (anchor)", name: "id", widget: "string", required: false }
-                  - { label: "type", name: "type", widget: "hidden", default: "nav" }
+                  - { label: "Mostrar", name: "enabled", widget: "boolean", default: true }
+                  - { label: "ID (ancla)", name: "id", widget: "string", required: false }
                   - label: "Items"
                     name: "items"
                     widget: "list"

@@ -2,45 +2,41 @@
   "blocks": [
     {
       "type": "hero",
+      "enabled": true,
       "id": "producto",
-      "title": "Spirulina",
       "subtitle": "Contenido de ejemplo (edítame en el CMS)",
+      "title": "Spirulina",
       "headline": "Este texto es inventado para que la persona sepa qué cambiar.",
       "body": "✅ Este párrafo es un ejemplo.\n\n- Puedes escribir listas\n- Resaltar en **negrita**\n- Agregar párrafos\n\n**Instrucción:** reemplaza este contenido por tu descripción real.",
       "image": "assets/uploads/demo-product.svg",
       "imageAlt": "Imagen demo",
       "pills": ["🌿 Natural", "🥤 Fácil de mezclar", "✨ Rutina diaria"],
       "buttons": [
-        { "label": "Ver tabs", "href": "#info", "variant": "primary" },
-        { "label": "Ir a galería", "href": "#galeria", "variant": "ghost" }
+        { "label": "Ver información", "href": "#info", "variant": "primary" },
+        { "label": "Ir a beneficios", "href": "#beneficios", "variant": "ghost" }
       ]
     },
     {
       "type": "nav",
+      "enabled": true,
       "id": "navegacion",
       "items": [
         { "label": "📌 Producto", "href": "#producto" },
         { "label": "💚 Beneficios", "href": "#beneficios" },
-        { "label": "📋 Tabs", "href": "#info" },
+        { "label": "📋 Información", "href": "#info" },
         { "label": "🖼️ Galería", "href": "#galeria" }
       ]
     },
     {
       "type": "text",
+      "enabled": true,
       "id": "beneficios",
       "title": "Beneficios (DEMO)",
       "body": "Este bloque existe para que el editor entienda **qué editar**.\n\n- ✅ Beneficio 1 (inventado)\n- ✅ Beneficio 2 (inventado)\n- ✅ Beneficio 3 (inventado)\n\nCambia estos bullets por los reales."
     },
     {
-      "type": "image",
-      "id": "imagen-demo",
-      "title": "Bloque de imagen (DEMO)",
-      "image": "assets/uploads/demo-1.svg",
-      "alt": "Imagen demo",
-      "caption": "Caption demo: aquí puedes explicar la foto o dar una nota."
-    },
-    {
       "type": "tabs",
+      "enabled": true,
       "id": "info",
       "title": "Información del producto (DEMO)",
       "ariaLabel": "Tabs de producto",
@@ -61,6 +57,7 @@
     },
     {
       "type": "gallery",
+      "enabled": true,
       "id": "galeria",
       "title": "Galería (DEMO)",
       "images": [

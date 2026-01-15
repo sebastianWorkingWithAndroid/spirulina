@@ -7,13 +7,11 @@
   "accent": "#37d67a",
   "accent2": "#1fbf6a",
   "containerWidth": 1100,
-  "fontBody": "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
-  "fontHead": "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
-  "googleFontsUrl": "",
+  "font": "ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial",
   "headerNavItems": [
-    { "label": "Producto", "href": "#producto", "isPrimary": false },
-    { "label": "Beneficios", "href": "#beneficios", "isPrimary": false },
-    { "label": "Tabs", "href": "#info", "isPrimary": true }
+    { "label": "Producto", "href": "#producto" },
+    { "label": "Beneficios", "href": "#beneficios" },
+    { "label": "Tabs", "href": "#info" }
   ],
   "footerText": "© 2026. Todos los derechos reservados."
 }
