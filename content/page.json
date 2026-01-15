@@ -1,30 +1,54 @@
 {
   "blocks": [
     {
-      "type": "hero",
       "enabled": true,
-      "id": "producto",
+      "buttons": [
+        {
+          "label": "Ver información",
+          "href": "#info",
+          "variant": "primary"
+        },
+        {
+          "label": "Ir a beneficios",
+          "href": "#beneficios",
+          "variant": "ghost"
+        }
+      ],
+      "body": "✅ Este párrafo es un ejemplo.\n\n- Puedes escribir listas\n- Resaltar en **negrita**\n- Agregar párrafos\n\n**Instrucción:** reemplaza este contenido por tu descripción real.",
+      "imageAlt": "Imagen demo",
+      "headline": "Este texto es inventado para que la persona sepa qué cambiar.",
       "subtitle": "Contenido de ejemplo (edítame en el CMS)",
       "title": "Spirulina",
-      "headline": "Este texto es inventado para que la persona sepa qué cambiar.",
-      "body": "✅ Este párrafo es un ejemplo.\n\n- Puedes escribir listas\n- Resaltar en **negrita**\n- Agregar párrafos\n\n**Instrucción:** reemplaza este contenido por tu descripción real.",
-      "image": "assets/uploads/demo-product.svg",
-      "imageAlt": "Imagen demo",
-      "pills": ["🌿 Natural", "🥤 Fácil de mezclar", "✨ Rutina diaria"],
-      "buttons": [
-        { "label": "Ver información", "href": "#info", "variant": "primary" },
-        { "label": "Ir a beneficios", "href": "#beneficios", "variant": "ghost" }
-      ]
+      "pills": [
+        "🌿 Natural",
+        "🥤 Fácil de mezclar",
+        "✨ Rutina diaria"
+      ],
+      "type": "hero",
+      "id": "producto",
+      "image": "assets/uploads/demo-product.svg"
     },
     {
       "type": "nav",
       "enabled": true,
       "id": "navegacion",
       "items": [
-        { "label": "📌 Producto", "href": "#producto" },
-        { "label": "💚 Beneficios", "href": "#beneficios" },
-        { "label": "📋 Información", "href": "#info" },
-        { "label": "🖼️ Galería", "href": "#galeria" }
+        {
+          "label": "📌 Producto",
+          "href": "#producto"
+        },
+        {
+          "label": "💚 Beneficios",
+          "href": "#beneficios"
+        },
+        {
+          "label": "📋 Información",
+          "href": "#info"
+        },
+        {
+          "label": "🖼️ Galería",
+          "href": "#galeria"
+        }
       ]
     },
     {
@@ -59,11 +83,20 @@
       "type": "gallery",
       "enabled": true,
       "id": "galeria",
-      "title": "Galería (DEMO)",
+      "title": "Galería",
       "images": [
-        { "image": "assets/uploads/demo-2.svg", "alt": "Demo 2" },
-        { "image": "assets/uploads/demo-3.svg", "alt": "Demo 3" },
-        { "image": "assets/uploads/demo-1.svg", "alt": "Demo 1" }
+        {
+          "image": "assets/uploads/demo-2.svg",
+          "alt": "Demo 2"
+        },
+        {
+          "image": "assets/uploads/demo-3.svg",
+          "alt": "Demo 3"
+        },
+        {
+          "image": "assets/uploads/demo-1.svg",
+          "alt": "Demo 1"
+        }
       ]
     }
   ]
